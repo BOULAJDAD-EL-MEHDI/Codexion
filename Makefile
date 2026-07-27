@@ -6,7 +6,7 @@
 #    By: eboulajd <eboulajd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/07/26 15:17:09 by eboulajd          #+#    #+#              #
-#    Updated: 2026/07/26 15:27:51 by eboulajd         ###   ########.fr        #
+#    Updated: 2026/07/27 00:53:20 by eboulajd         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,11 @@ CODEXH = codexion.h
 
 CFLAGS = -Wall -Wextra -Werror
 
-CODEXC = parser.c
+CODEXC = parser.c \
+		 routing.c \
+		 simulation.c \
+		 init.c \
+		 
 
 run:
 	$(CC) $(MAIN) $(CODEXC)

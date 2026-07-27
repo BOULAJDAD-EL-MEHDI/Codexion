@@ -6,26 +6,30 @@
 /*   By: eboulajd <eboulajd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/26 14:51:09 by eboulajd          #+#    #+#             */
-/*   Updated: 2026/07/26 15:06:57 by eboulajd         ###   ########.fr       */
+/*   Updated: 2026/07/27 00:46:42 by eboulajd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
-
+ 
 int	main(int argc, char **argv)
 {
 	t_config	config;
-
+	t_sim		sim;
+ 
 	if (!parse_args(argc, argv, &config))
 		return (1);
-
-	printf("Number of coders        : %d\n", config.number_of_coders);
-	printf("Time to burnout         : %d\n", config.time_to_burnout);
-	printf("Time to compile         : %d\n", config.time_to_compile);
-	printf("Time to debug           : %d\n", config.time_to_debug);
-	printf("Time to refactor        : %d\n", config.time_to_refactor);
-	printf("Compiles required       : %d\n", config.number_of_compiles_required);
-	printf("Dongle cooldown         : %d\n", config.dongle_cooldown);
-	printf("Scheduler               : %s\n", config.scheduler);
+	if (!init_sim(&sim, &config))
+	{
+		printf("Error: initialization failed\n");
+		return (1);
+	}
+	if (!start_simulation(&sim))
+	{
+		printf("Error: simulation failed to start\n");
+		destroy_sim(&sim);
+		return (1);
+	}
+	destroy_sim(&sim);
 	return (0);
 }
