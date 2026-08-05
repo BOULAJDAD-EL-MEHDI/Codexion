@@ -1,0 +1,93 @@
+============================================================
+[FAIL] Expected burnout did not occur
+Command:
+./codexion 7 180 50 5 5 2 10 fifo 
+
+Coder parity: odd
+Formula: (time_to_compile + dongle_cooldown) * 3
+Calculated threshold: 180 ms
+Actual time_to_burnout: 180 ms
+Expected: burnout
+Scheduler: fifo
+Repetition: 1/1
+Exit status: 0
+
+Compile counts:
+Coder 1: 2
+Coder 2: 2
+Coder 3: 2
+Coder 4: 2
+Coder 5: 2
+Coder 6: 2
+Coder 7: 2
+
+Complete output:
+0 2 has taken a dongle
+0 2 has taken a dongle
+0 2 is compiling
+0 4 has taken a dongle
+0 4 has taken a dongle
+0 4 is compiling
+1 6 has taken a dongle
+1 6 has taken a dongle
+1 6 is compiling
+50 2 is debugging
+50 4 is debugging
+51 6 is debugging
+55 2 is refactoring
+55 4 is refactoring
+56 6 is refactoring
+60 3 has taken a dongle
+60 3 has taken a dongle
+60 3 is compiling
+60 1 has taken a dongle
+60 1 has taken a dongle
+60 1 is compiling
+61 5 has taken a dongle
+61 5 has taken a dongle
+61 5 is compiling
+110 1 is debugging
+111 3 is debugging
+112 5 is debugging
+115 1 is refactoring
+116 3 is refactoring
+117 5 is refactoring
+120 7 has taken a dongle
+120 7 has taken a dongle
+120 7 is compiling
+120 2 has taken a dongle
+120 2 has taken a dongle
+120 2 is compiling
+121 4 has taken a dongle
+121 4 has taken a dongle
+121 4 is compiling
+170 2 is debugging
+170 7 is debugging
+171 4 is debugging
+175 7 is refactoring
+175 2 is refactoring
+176 4 is refactoring
+180 6 has taken a dongle
+180 6 has taken a dongle
+180 6 is compiling
+180 1 has taken a dongle
+180 1 has taken a dongle
+180 1 is compiling
+181 3 has taken a dongle
+181 3 has taken a dongle
+181 3 is compiling
+230 1 is debugging
+230 6 is debugging
+231 3 is debugging
+235 1 is refactoring
+235 6 is refactoring
+236 3 is refactoring
+240 7 has taken a dongle
+240 7 has taken a dongle
+240 7 is compiling
+240 5 has taken a dongle
+240 5 has taken a dongle
+240 5 is compiling
+290 5 is debugging
+290 7 is debugging
+============================================================

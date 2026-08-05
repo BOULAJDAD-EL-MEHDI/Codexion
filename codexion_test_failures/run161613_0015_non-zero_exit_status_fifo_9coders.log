@@ -1,0 +1,28 @@
+============================================================
+[FAIL] Non-zero exit status
+Command:
+./codexion 9 140 30 10 10 5 0 fifo 
+
+Coder parity: odd
+Formula: (time_to_compile + dongle_cooldown) * 3
+Calculated threshold: 90 ms
+Actual time_to_burnout: 140 ms
+Expected: no-burnout
+Scheduler: fifo
+Repetition: 1/10
+Exit status: 127
+
+Compile counts:
+Coder 1: 0
+Coder 2: 0
+Coder 3: 0
+Coder 4: 0
+Coder 5: 0
+Coder 6: 0
+Coder 7: 0
+Coder 8: 0
+Coder 9: 0
+
+Complete output:
+timeout: failed to run command ‘./codexion’: No such file or directory
+============================================================

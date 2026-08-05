@@ -5,103 +5,99 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eboulajd <eboulajd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/26 22:25:02 by eboulajd          #+#    #+#             */
-/*   Updated: 2026/07/27 00:56:05 by eboulajd         ###   ########.fr       */
+/*   Created: 2026/07/27 00:00:00 by eboulajd          #+#    #+#             */
+/*   Updated: 2026/07/31 00:00:00 by eboulajd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
+#include <time.h>
 
- 
 long	get_time_ms(void)
 {
-	struct timeval	tv;
- 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	struct timespec	ts;
+
+	clock_gettime(CLOCK_MONOTONIC, &ts);
+	return ((ts.tv_sec * 1000) + (ts.tv_nsec / 1000000));
 }
- 
-static int	alloc_arrays(t_sim *sim, int count)
+
+static int	init_one_coder(t_sim *sim, int index, int count)
 {
-	sim->dongles = malloc(sizeof(t_dongle) * count);
-	if (!sim->dongles)
-		return (0);
-	sim->coders = malloc(sizeof(t_coder) * count);
-	if (!sim->coders)
-	{
-		free(sim->dongles);
-		return (0);
-	}
-	return (1);
+	t_coder	*coder;
+
+	coder = &sim->coders[index];
+	coder->id = index;
+	coder->compiles_done = 0;
+	coder->last_compile_start = sim->start_time;
+	coder->left_dongle = &sim->dongles[index];
+	coder->right_dongle = &sim->dongles[(index + 1) % count];
+	coder->sim = sim;
+	return (pthread_mutex_init(&coder->action_mutex, NULL) == 0);
 }
- 
-static int	init_dongles(t_dongle *dongles, int count)
-{
-	int	i;
- 
-	i = 0;
-	while (i < count)
-	{
-		dongles[i].id = i;
-		if (pthread_mutex_init(&dongles[i].mutex, NULL) != 0)
-		{
-			while (--i >= 0)
-				pthread_mutex_destroy(&dongles[i].mutex);
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
- 
+
 static int	init_coders(t_sim *sim, int count)
 {
 	int	i;
-	int	j;
- 
+
 	i = 0;
 	while (i < count)
 	{
-		sim->coders[i].id = i;
-		sim->coders[i].compiles_done = 0;
-		sim->coders[i].last_action_time = sim->start_time;
-		sim->coders[i].left_dongle = &sim->dongles[i];
-		sim->coders[i].right_dongle = &sim->dongles[(i + 1) % count];
-		sim->coders[i].sim = sim;
-		if (pthread_mutex_init(&sim->coders[i].action_mutex, NULL) != 0)
+		if (!init_one_coder(sim, i, count))
 		{
-			j = 0;
-			while (j < i)
-				pthread_mutex_destroy(&sim->coders[j++].action_mutex);
+			while (i > 0)
+			{
+				i--;
+				pthread_mutex_destroy(&sim->coders[i].action_mutex);
+			}
 			return (0);
 		}
 		i++;
 	}
 	return (1);
 }
- 
+
+static int	init_resources(t_sim *sim, int count)
+{
+	if (!init_pair_queues(sim, count))
+		return (0);
+	if (!prepare_arrays(sim, count))
+	{
+		heap_destroy(&sim->pair_queue);
+		heap_destroy(&sim->pair_scratch);
+		return (0);
+	}
+	if (!init_coders(sim, count))
+	{
+		free(sim->dongles);
+		sim->dongles = NULL;
+		free(sim->coders);
+		sim->coders = NULL;
+		heap_destroy(&sim->pair_queue);
+		heap_destroy(&sim->pair_scratch);
+		return (0);
+	}
+	return (1);
+}
+
 int	init_sim(t_sim *sim, t_config *config)
 {
-	int	count;
- 
-	count = config->number_of_coders;
 	sim->config = config;
 	sim->stop = 0;
 	sim->coders_done = 0;
+	sim->coders_started = 0;
+	sim->monitor_started = 0;
+	sim->start_ready = 0;
+	sim->initial_requests = 0;
+	sim->timer_waiting = 0;
+	sim->dongles = NULL;
+	sim->coders = NULL;
+	sim->pair_sequence = 0;
 	sim->start_time = get_time_ms();
-	if (pthread_mutex_init(&sim->stop_mutex, NULL) != 0)
+	if (!init_sim_mutexes(sim))
 		return (0);
-	if (pthread_mutex_init(&sim->write_mutex, NULL) != 0)
+	if (!init_resources(sim, config->number_of_coders))
 	{
-		pthread_mutex_destroy(&sim->stop_mutex);
-		return (0);
-	}
-	if (!alloc_arrays(sim, count))
-		return (0);
-	if (!init_dongles(sim->dongles, count) || !init_coders(sim, count))
-	{
-		free(sim->dongles);
-		free(sim->coders);
+		destroy_sim_mutexes(sim);
 		return (0);
 	}
 	return (1);

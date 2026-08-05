@@ -1,0 +1,22 @@
+============================================================
+[FAIL] Missing dongle acquisition
+Command:
+./codexion 1 60 20 5 5 1 0 fifo 
+
+Coder parity: odd
+Formula: (time_to_compile + dongle_cooldown) * 3
+Calculated threshold: 60 ms
+Actual time_to_burnout: 60 ms
+Expected: burnout
+Actual: coder 1 burned out
+Burnout timestamp: 60 ms
+Scheduler: fifo
+Repetition: 1/1
+Exit status: 0
+
+Compile counts:
+Coder 1: 0
+
+Complete output:
+60 1 burned out
+============================================================

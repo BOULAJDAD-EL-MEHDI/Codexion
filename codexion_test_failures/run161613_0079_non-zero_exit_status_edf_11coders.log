@@ -1,0 +1,29 @@
+============================================================
+[FAIL] Non-zero exit status
+Command:
+./codexion 11 260 50 10 10 5 20 edf 
+
+Coder parity: odd
+Formula: (time_to_compile + dongle_cooldown) * 3
+Calculated threshold: 210 ms
+Actual time_to_burnout: 260 ms
+Expected: no-burnout
+Scheduler: edf
+Repetition: 1/10
+Exit status: 1
+
+Compile counts:
+Coder 1: 0
+Coder 2: 0
+Coder 3: 0
+Coder 4: 0
+Coder 5: 0
+Coder 6: 0
+Coder 7: 0
+Coder 8: 0
+Coder 9: 0
+Coder 10: 0
+Coder 11: 0
+
+Complete output:
+============================================================

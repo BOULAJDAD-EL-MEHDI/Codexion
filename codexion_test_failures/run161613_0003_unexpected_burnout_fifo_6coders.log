@@ -1,0 +1,52 @@
+============================================================
+[FAIL] Unexpected burnout
+Command:
+./codexion 6 81 40 5 5 2 0 fifo 
+
+Coder parity: even
+Formula: (time_to_compile + dongle_cooldown) * 2
+Calculated threshold: 80 ms
+Actual time_to_burnout: 81 ms
+Expected: no-burnout
+Actual: coder 2 burned out
+Burnout timestamp: 81 ms
+Scheduler: fifo
+Repetition: 1/10
+Exit status: 0
+
+Compile counts:
+Coder 1: 1
+Coder 2: 1
+Coder 3: 1
+Coder 4: 1
+Coder 5: 1
+Coder 6: 1
+
+Complete output:
+0 2 has taken a dongle
+0 2 has taken a dongle
+0 2 is compiling
+0 4 has taken a dongle
+0 4 has taken a dongle
+0 4 is compiling
+0 6 has taken a dongle
+0 6 has taken a dongle
+0 6 is compiling
+40 2 is debugging
+41 6 is debugging
+41 4 is debugging
+41 5 has taken a dongle
+41 5 has taken a dongle
+41 5 is compiling
+41 1 has taken a dongle
+41 1 has taken a dongle
+41 1 is compiling
+41 3 has taken a dongle
+41 3 has taken a dongle
+41 3 is compiling
+45 2 is refactoring
+46 4 is refactoring
+46 6 is refactoring
+81 3 is debugging
+81 2 burned out
+============================================================

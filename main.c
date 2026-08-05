@@ -3,20 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eboulajd <eboulajd@student.42.fr>          +#+  +:+       +#+        */
+/*   By: voldemort <voldemort@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/26 14:51:09 by eboulajd          #+#    #+#             */
-/*   Updated: 2026/07/27 00:46:42 by eboulajd         ###   ########.fr       */
+/*   Created: 2026/07/28 17:28:56 by voldemort         #+#    #+#             */
+/*   Updated: 2026/07/28 17:32:06 by voldemort        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
- 
+
 int	main(int argc, char **argv)
 {
 	t_config	config;
 	t_sim		sim;
- 
+	int			ok;
+
 	if (!parse_args(argc, argv, &config))
 		return (1);
 	if (!init_sim(&sim, &config))
@@ -24,12 +25,9 @@ int	main(int argc, char **argv)
 		printf("Error: initialization failed\n");
 		return (1);
 	}
-	if (!start_simulation(&sim))
-	{
+	ok = start_simulation(&sim);
+	if (!ok)
 		printf("Error: simulation failed to start\n");
-		destroy_sim(&sim);
-		return (1);
-	}
-	destroy_sim(&sim);
-	return (0);
+	cleanup_sim(&sim);
+	return (!ok);
 }

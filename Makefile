@@ -5,24 +5,49 @@
 #                                                     +:+ +:+         +:+      #
 #    By: eboulajd <eboulajd@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2026/07/26 15:17:09 by eboulajd          #+#    #+#              #
-#    Updated: 2026/07/27 00:53:20 by eboulajd         ###   ########.fr        #
+#    Created: 2026/07/28                                  #+#    #+#          #
+#    Updated: 2026/07/28                                  ###   ########.fr    #
 #                                                                              #
 # **************************************************************************** #
 
-MAIN = main.c
+NAME		= codexion
 
-CC = cc
+CC			= cc
+CFLAGS = -Wall -Wextra -Werror -pthread -g3
+RM			= rm -f
 
-CODEXH = codexion.h
+SRCS		=	main.c \
+				init.c \
+				init_utils.c \
+				routine.c \
+				simulation.c \
+				monitor.c \
+				monitor_utils.c \
+				parser.c \
+				utils.c \
+				heap.c \
+				heap_utils.c \
+				scheduler.c \
+				scheduler_utils.c
 
-CFLAGS = -Wall -Wextra -Werror
+OBJS		= $(SRCS:.c=.o)
 
-CODEXC = parser.c \
-		 routing.c \
-		 simulation.c \
-		 init.c \
-		 
+INCLUDES	= -I.
 
-run:
-	$(CC) $(MAIN) $(CODEXC)
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+
+%.o: %.c codexion.h
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+clean:
+	$(RM) $(OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
