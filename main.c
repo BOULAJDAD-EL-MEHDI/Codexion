@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: voldemort <voldemort@student.42.fr>        +#+  +:+       +#+        */
+/*   By: eboulajd <eboulajd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/28 17:28:56 by voldemort         #+#    #+#             */
-/*   Updated: 2026/07/28 17:32:06 by voldemort        ###   ########.fr       */
+/*   Created: 2026/09/05 12:18:59 by eboulajd          #+#    #+#             */
+/*   Updated: 2026/09/05 12:19:00 by eboulajd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "codexion.h"
 
