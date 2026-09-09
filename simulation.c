@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "codexion.h"
-
-static void	join_coder_threads(t_sim *sim);
 
 static void	reset_start_time(t_sim *sim)
 {
@@ -101,16 +98,4 @@ void	cleanup_sim(t_sim *sim)
 	pthread_mutex_destroy(&sim->write_mutex);
 	pthread_mutex_destroy(&sim->pair_mutex);
 	pthread_cond_destroy(&sim->pair_cond);
-}
-
-static void	join_coder_threads(t_sim *sim)
-{
-	int	i;
-
-	i = 0;
-	while (i < sim->coders_started)
-	{
-		pthread_join(sim->coders[i].thread, NULL);
-		i++;
-	}
 }

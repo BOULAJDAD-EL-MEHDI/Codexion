@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef CODEXION_H
 # define CODEXION_H
 
@@ -121,5 +120,12 @@ int		coder_public_id(t_coder *coder);
 int		scheduler_acquire_pair(t_coder *coder);
 void	scheduler_release_pair(t_coder *coder);
 void	scheduler_dispatch(t_sim *sim);
+
+void	store_config(t_config *config, long *values, char *scheduler);
+void	join_coder_threads(t_sim *sim);
+int		run_compile_cycle(t_coder *coder, t_sim *sim);
+void	run_single_coder(t_coder *coder);
+int		try_grant_pairs(t_sim *sim);
+int		wait_for_grant(t_sim *sim, t_coder *coder, int *granted);
 
 #endif

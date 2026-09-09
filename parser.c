@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "codexion.h"
 
 static long	handle_negative(char *str)
@@ -68,18 +67,6 @@ long	custom_atoi(char *str)
 	else if (*str == '+')
 		str++;
 	return (handle_positive(str, &result));
-}
-
-static void	store_config(t_config *config, long *values, char *scheduler)
-{
-	config->number_of_coders = values[0];
-	config->time_to_burnout = values[1];
-	config->time_to_compile = values[2];
-	config->time_to_debug = values[3];
-	config->time_to_refactor = values[4];
-	config->number_of_compiles_required = values[5];
-	config->dongle_cooldown = values[6];
-	config->scheduler = scheduler;
 }
 
 static int	parse_numbers(char **argv, long *values)

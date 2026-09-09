@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "codexion.h"
 
 int	prepare_arrays(t_sim *sim, int count)
@@ -89,12 +88,4 @@ int	init_sim_mutexes(t_sim *sim)
 		return (0);
 	}
 	return (1);
-}
-
-void	destroy_sim_mutexes(t_sim *sim)
-{
-	pthread_mutex_destroy(&sim->stop_mutex);
-	pthread_mutex_destroy(&sim->write_mutex);
-	pthread_mutex_destroy(&sim->pair_mutex);
-	pthread_cond_destroy(&sim->pair_cond);
 }

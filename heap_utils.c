@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "codexion.h"
 
 static void	swap_requests(t_request *a, t_request *b)

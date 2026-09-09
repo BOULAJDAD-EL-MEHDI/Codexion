@@ -21,6 +21,7 @@ SRCS		=	main.c \
 				init.c \
 				init_utils.c \
 				routine.c \
+				routine_utils.c \
 				simulation.c \
 				monitor.c \
 				monitor_utils.c \
@@ -29,6 +30,8 @@ SRCS		=	main.c \
 				heap.c \
 				heap_utils.c \
 				scheduler.c \
+				scheduler_wait.c \
+				scheduler_request.c \
 				scheduler_utils.c
 
 OBJS		= $(SRCS:.c=.o)

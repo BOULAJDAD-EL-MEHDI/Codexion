@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "codexion.h"
 
 int	coder_burned_out(t_coder *coder, long now)
@@ -58,9 +57,9 @@ int	report_burnout(t_sim *sim, t_coder *coder, long now)
 
 	pthread_mutex_lock(&coder->action_mutex);
 	expired = (coder->compiles_done
-		< sim->config->number_of_compiles_required
-		&& now - coder->last_compile_start
-		>= sim->config->time_to_burnout);
+			< sim->config->number_of_compiles_required
+			&& now - coder->last_compile_start
+			>= sim->config->time_to_burnout);
 	if (!expired)
 	{
 		pthread_mutex_unlock(&coder->action_mutex);
